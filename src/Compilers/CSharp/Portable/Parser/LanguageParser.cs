@@ -9674,9 +9674,9 @@ done:
             while (true)
             {
                 var ifKeyword = this.EatToken(SyntaxKind.IfKeyword);
-                var openParen = this.EatToken(SyntaxKind.OpenParenToken);
+                var openParen = this.EatOrMissing(SyntaxKind.OpenParenToken);
                 var condition = this.ParseExpressionCore();
-                var closeParen = this.EatToken(SyntaxKind.CloseParenToken);
+                var closeParen = this.TryParseCongener(openParen, SyntaxKind.CloseParenToken);
                 var consequence = this.ParseEmbeddedStatement();
 
                 var elseKeyword = this.CurrentToken.Kind != SyntaxKind.ElseKeyword ?

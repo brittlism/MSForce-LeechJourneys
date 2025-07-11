@@ -490,6 +490,18 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return ct;
         }
 
+        protected SyntaxToken EatOrMissing(SyntaxKind kind)
+        {
+            return this.CurrentToken.Kind == kind
+                ? this.EatToken(kind)
+                : SyntaxFactory.MissingToken(kind);
+        }
+
+        protected SyntaxToken TryParseCongener(SyntaxToken congener, SyntaxKind kind)
+        {
+            return congener.IsMissing ? SyntaxFactory.MissingToken(kind) : this.EatToken(kind);
+        }
+
         /// <summary>
         /// Returns and consumes the current token if it has the requested <paramref name="kind"/>.
         /// Otherwise, returns <see langword="null"/>.
