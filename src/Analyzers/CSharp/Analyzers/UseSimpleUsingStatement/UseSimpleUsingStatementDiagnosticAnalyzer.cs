@@ -68,9 +68,6 @@ internal sealed class UseSimpleUsingStatementDiagnosticAnalyzer()
     {
         context.RegisterCompilationStartAction(context =>
         {
-            if (context.Compilation.LanguageVersion() < LanguageVersion.CSharp8)
-                return;
-
             context.RegisterSyntaxNodeAction(AnalyzeSyntax, SyntaxKind.UsingStatement);
         });
     }

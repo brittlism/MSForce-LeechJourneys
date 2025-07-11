@@ -30598,30 +30598,6 @@ internal partial class ContextAwareSyntax
 
     public LocalDeclarationStatementSyntax LocalDeclarationStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken? awaitKeyword, SyntaxToken? usingKeyword, CoreSyntax.SyntaxList<SyntaxToken> modifiers, VariableDeclarationSyntax declaration, SyntaxToken semicolonToken)
     {
-#if DEBUG
-        if (awaitKeyword != null)
-        {
-            switch (awaitKeyword.Kind)
-            {
-                case SyntaxKind.AwaitKeyword:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(awaitKeyword));
-            }
-        }
-        if (usingKeyword != null)
-        {
-            switch (usingKeyword.Kind)
-            {
-                case SyntaxKind.UsingKeyword:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(usingKeyword));
-            }
-        }
-        if (declaration == null) throw new ArgumentNullException(nameof(declaration));
-        if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
-        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
-#endif
-
         return new LocalDeclarationStatementSyntax(SyntaxKind.LocalDeclarationStatement, attributeLists.Node, awaitKeyword, usingKeyword, modifiers.Node, declaration, semicolonToken, this.context);
     }
 
@@ -31038,25 +31014,6 @@ internal partial class ContextAwareSyntax
 
     public UsingStatementSyntax UsingStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken? awaitKeyword, SyntaxToken usingKeyword, SyntaxToken openParenToken, VariableDeclarationSyntax? declaration, ExpressionSyntax? expression, SyntaxToken closeParenToken, StatementSyntax statement)
     {
-#if DEBUG
-        if (awaitKeyword != null)
-        {
-            switch (awaitKeyword.Kind)
-            {
-                case SyntaxKind.AwaitKeyword:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(awaitKeyword));
-            }
-        }
-        if (usingKeyword == null) throw new ArgumentNullException(nameof(usingKeyword));
-        if (usingKeyword.Kind != SyntaxKind.UsingKeyword) throw new ArgumentException(nameof(usingKeyword));
-        if (openParenToken == null) throw new ArgumentNullException(nameof(openParenToken));
-        if (openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
-        if (closeParenToken == null) throw new ArgumentNullException(nameof(closeParenToken));
-        if (closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
-        if (statement == null) throw new ArgumentNullException(nameof(statement));
-#endif
-
         return new UsingStatementSyntax(SyntaxKind.UsingStatement, attributeLists.Node, awaitKeyword, usingKeyword, openParenToken, declaration, expression, closeParenToken, statement, this.context);
     }
 
@@ -36405,25 +36362,6 @@ internal static partial class SyntaxFactory
 
     public static UsingStatementSyntax UsingStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken? awaitKeyword, SyntaxToken usingKeyword, SyntaxToken openParenToken, VariableDeclarationSyntax? declaration, ExpressionSyntax? expression, SyntaxToken closeParenToken, StatementSyntax statement)
     {
-#if DEBUG
-        if (awaitKeyword != null)
-        {
-            switch (awaitKeyword.Kind)
-            {
-                case SyntaxKind.AwaitKeyword:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(awaitKeyword));
-            }
-        }
-        if (usingKeyword == null) throw new ArgumentNullException(nameof(usingKeyword));
-        if (usingKeyword.Kind != SyntaxKind.UsingKeyword) throw new ArgumentException(nameof(usingKeyword));
-        if (openParenToken == null) throw new ArgumentNullException(nameof(openParenToken));
-        if (openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
-        if (closeParenToken == null) throw new ArgumentNullException(nameof(closeParenToken));
-        if (closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
-        if (statement == null) throw new ArgumentNullException(nameof(statement));
-#endif
-
         return new UsingStatementSyntax(SyntaxKind.UsingStatement, attributeLists.Node, awaitKeyword, usingKeyword, openParenToken, declaration, expression, closeParenToken, statement);
     }
 

@@ -423,8 +423,8 @@
         <note />
       </trans-unit>
       <trans-unit id="Use_simple_using_statement">
-        <source>Use simple 'using' statement</source>
-        <target state="translated">Use la instrucción "using" simple</target>
+        <source>Use simple 'scoped' statement</source>
+        <target state="needs-review-translation">Use la instrucción "using" simple</target>
         <note />
       </trans-unit>
       <trans-unit id="Use_switch_expression">
@@ -503,8 +503,8 @@
         <note />
       </trans-unit>
       <trans-unit id="using_statement_can_be_simplified">
-        <source>'using' statement can be simplified</source>
-        <target state="translated">La instrucción "using" se puede simplificar</target>
+        <source>'scoped' statement can be simplified</source>
+        <target state="needs-review-translation">La instrucción "using" se puede simplificar</target>
         <note />
       </trans-unit>
     </body>

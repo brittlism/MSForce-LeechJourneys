@@ -8120,8 +8120,8 @@ done:
                         if (result != null)
                             return result;
                         break;
-                    case SyntaxKind.UsingKeyword:
-                        return ParseStatementStartingWithUsing(attributes);
+                    case SyntaxKind.ScopedKeyword:
+                        return ParseStatementStartingWithScoped(attributes);
                     case SyntaxKind.WhileKeyword:
                         return this.ParseWhileStatement(attributes);
                     case SyntaxKind.OpenBraceToken:
@@ -8215,12 +8215,12 @@ done:
             {
                 return this.ParseForEachStatement(attributes, this.EatContextualToken(SyntaxKind.AwaitKeyword));
             }
-            else if (IsPossibleAwaitUsing())
+            else if (IsPossibleAwaitScoped())
             {
                 if (PeekToken(2).Kind == SyntaxKind.OpenParenToken)
                 {
                     // `await using Type ...` is handled below in ParseLocalDeclarationStatement
-                    return this.ParseUsingStatement(attributes, this.EatContextualToken(SyntaxKind.AwaitKeyword));
+                    return this.ParseScopedStatement(attributes, this.EatContextualToken(SyntaxKind.AwaitKeyword));
                 }
             }
             else if (this.IsPossibleLabeledStatement())
@@ -8243,15 +8243,15 @@ done:
             return null;
         }
 
-        private StatementSyntax ParseStatementStartingWithUsing(SyntaxList<AttributeListSyntax> attributes)
-            => PeekToken(1).Kind == SyntaxKind.OpenParenToken ? ParseUsingStatement(attributes) : ParseLocalDeclarationStatement(attributes);
+        private StatementSyntax ParseStatementStartingWithScoped(SyntaxList<AttributeListSyntax> attributes)
+            => PeekToken(1).Kind == SyntaxKind.OpenParenToken ? ParseScopedStatement(attributes) : ParseLocalDeclarationStatement(attributes);
 
         // Checking for brace to disambiguate between unsafe statement and unsafe local function
         private StatementSyntax TryParseStatementStartingWithUnsafe(SyntaxList<AttributeListSyntax> attributes)
             => IsPossibleUnsafeStatement() ? ParseUnsafeStatement(attributes) : null;
 
-        private bool IsPossibleAwaitUsing()
-            => CurrentToken.ContextualKind == SyntaxKind.AwaitKeyword && PeekToken(1).Kind == SyntaxKind.UsingKeyword;
+        private bool IsPossibleAwaitScoped()
+            => CurrentToken.ContextualKind == SyntaxKind.AwaitKeyword && PeekToken(1).Kind == SyntaxKind.ScopedKeyword;
 
         private bool IsPossibleLabeledStatement()
         {
@@ -8292,7 +8292,7 @@ done:
                 return true;
             }
 
-            if (IsPossibleAwaitUsing())
+            if (IsPossibleAwaitScoped())
             {
                 Debug.Assert(PeekToken(2).Kind != SyntaxKind.OpenParenToken);
                 return true;
@@ -8928,7 +8928,7 @@ done:
                 case SyntaxKind.SwitchKeyword:
                 case SyntaxKind.ThrowKeyword:
                 case SyntaxKind.UnsafeKeyword:
-                case SyntaxKind.UsingKeyword:
+                case SyntaxKind.ScopedKeyword: // modified -LeechForce
                 case SyntaxKind.WhileKeyword:
                 case SyntaxKind.OpenBraceToken:
                 case SyntaxKind.SemicolonToken:
@@ -9978,9 +9978,9 @@ done:
                 this.ParsePossiblyAttributedBlock());
         }
 
-        private UsingStatementSyntax ParseUsingStatement(SyntaxList<AttributeListSyntax> attributes, SyntaxToken awaitTokenOpt = null)
+        private UsingStatementSyntax ParseScopedStatement(SyntaxList<AttributeListSyntax> attributes, SyntaxToken awaitTokenOpt = null)
         {
-            var @using = this.EatToken(SyntaxKind.UsingKeyword);
+            var @scoped = this.EatToken(SyntaxKind.ScopedKeyword);
             var openParen = this.EatToken(SyntaxKind.OpenParenToken);
 
             VariableDeclarationSyntax declaration = null;
@@ -9993,7 +9993,7 @@ done:
             return _syntaxFactory.UsingStatement(
                 attributes,
                 awaitTokenOpt,
-                @using,
+                @scoped,
                 openParen,
                 declaration,
                 expression,
@@ -10137,12 +10137,12 @@ done:
         {
             SyntaxToken awaitKeyword, usingKeyword;
             bool canParseAsLocalFunction = false;
-            if (IsPossibleAwaitUsing())
+            if (IsPossibleAwaitScoped())
             {
                 awaitKeyword = this.EatContextualToken(SyntaxKind.AwaitKeyword);
                 usingKeyword = EatToken();
             }
-            else if (this.CurrentToken.Kind == SyntaxKind.UsingKeyword)
+            else if (this.CurrentToken.Kind == SyntaxKind.ScopedKeyword)
             {
                 awaitKeyword = null;
                 usingKeyword = EatToken();
@@ -10816,7 +10816,7 @@ done:
                 case SyntaxKind.ReturnKeyword:
                 case SyntaxKind.SwitchKeyword:
                 case SyntaxKind.TryKeyword:
-                case SyntaxKind.UsingKeyword:
+                case SyntaxKind.ScopedKeyword:
                 case SyntaxKind.WhileKeyword:
                     return true;
                 default:
