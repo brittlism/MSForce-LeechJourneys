@@ -398,6 +398,7 @@ public partial class CSharpSyntaxVisitor<TResult>
 
     /// <summary>Called when the visitor visits a DoStatementSyntax node.</summary>
     public virtual TResult? VisitDoStatement(DoStatementSyntax node) => this.DefaultVisit(node);
+    public virtual TResult? VisitDeleteStatement(DeleteStatementSyntax node) => this.DefaultVisit(node);
 
     /// <summary>Called when the visitor visits a ForStatementSyntax node.</summary>
     public virtual TResult? VisitForStatement(ForStatementSyntax node) => this.DefaultVisit(node);
@@ -1142,6 +1143,8 @@ public partial class CSharpSyntaxVisitor
 
     /// <summary>Called when the visitor visits a DoStatementSyntax node.</summary>
     public virtual void VisitDoStatement(DoStatementSyntax node) => this.DefaultVisit(node);
+
+    public virtual void VisitDeleteStatement(DeleteStatementSyntax node) => this.DefaultVisit(node);
 
     /// <summary>Called when the visitor visits a ForStatementSyntax node.</summary>
     public virtual void VisitForStatement(ForStatementSyntax node) => this.DefaultVisit(node);
@@ -4305,16 +4308,15 @@ public static partial class SyntaxFactory
     public static WhileStatementSyntax WhileStatement(ExpressionSyntax condition, StatementSyntax statement)
         => SyntaxFactory.WhileStatement(default, SyntaxFactory.Token(SyntaxKind.WhileKeyword), SyntaxFactory.Token(SyntaxKind.OpenParenToken), condition, SyntaxFactory.Token(SyntaxKind.CloseParenToken), statement);
 
+
+    public static DeleteStatementSyntax DeleteStatement(SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken deleteKeyword, NameSyntax nameSyntax, SyntaxToken semicolonToken)
+    {
+        return (DeleteStatementSyntax)Syntax.InternalSyntax.SyntaxFactory.DeleteStatement(attributeLists.Node.ToGreenList<Syntax.InternalSyntax.AttributeListSyntax>(), (Syntax.InternalSyntax.SyntaxToken)deleteKeyword.Node!, (Syntax.InternalSyntax.NameSyntax)nameSyntax.Green, (Syntax.InternalSyntax.SyntaxToken)semicolonToken.Node!).CreateRed();
+    }
+
     /// <summary>Creates a new DoStatementSyntax instance.</summary>
     public static DoStatementSyntax DoStatement(SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken whileKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken)
     {
-        if (doKeyword.Kind() != SyntaxKind.DoKeyword) throw new ArgumentException(nameof(doKeyword));
-        if (statement == null) throw new ArgumentNullException(nameof(statement));
-        if (whileKeyword.Kind() != SyntaxKind.WhileKeyword) throw new ArgumentException(nameof(whileKeyword));
-        if (openParenToken.Kind() != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
-        if (condition == null) throw new ArgumentNullException(nameof(condition));
-        if (closeParenToken.Kind() != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
-        if (semicolonToken.Kind() != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
         return (DoStatementSyntax)Syntax.InternalSyntax.SyntaxFactory.DoStatement(attributeLists.Node.ToGreenList<Syntax.InternalSyntax.AttributeListSyntax>(), (Syntax.InternalSyntax.SyntaxToken)doKeyword.Node!, (Syntax.InternalSyntax.StatementSyntax)statement.Green, (Syntax.InternalSyntax.SyntaxToken)whileKeyword.Node!, (Syntax.InternalSyntax.SyntaxToken)openParenToken.Node!, (Syntax.InternalSyntax.ExpressionSyntax)condition.Green, (Syntax.InternalSyntax.SyntaxToken)closeParenToken.Node!, (Syntax.InternalSyntax.SyntaxToken)semicolonToken.Node!).CreateRed();
     }
 

@@ -328,6 +328,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         ImplicitKeyword = 8384,
         /// <summary>Represents <see langword="scoped"/>.</summary>
         ScopedKeyword = 8385,
+        DeleteKeyword = 8386,
 
         // contextual keywords
         /// <summary>Represents <see langword="yield"/>.</summary>
@@ -778,6 +779,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         // statements that didn't fit above
         LocalFunctionStatement = 8830,
+        DeleteStatement = 8831,
 
         // declarations
         CompilationUnit = 8840,

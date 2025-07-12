@@ -681,6 +681,7 @@ Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitDefaultExpression(Microso
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitDefaultSwitchLabel(Microsoft.CodeAnalysis.CSharp.Syntax.DefaultSwitchLabelSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitDefineDirectiveTrivia(Microsoft.CodeAnalysis.CSharp.Syntax.DefineDirectiveTriviaSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitDelegateDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.DelegateDeclarationSyntax)
+Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitDeleteStatement(Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitDestructorDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.DestructorDeclarationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitDiscardDesignation(Microsoft.CodeAnalysis.CSharp.Syntax.DiscardDesignationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitDiscardPattern(Microsoft.CodeAnalysis.CSharp.Syntax.DiscardPatternSyntax)
@@ -932,6 +933,7 @@ Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitDefaultExpression(Micro
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitDefaultSwitchLabel(Microsoft.CodeAnalysis.CSharp.Syntax.DefaultSwitchLabelSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitDefineDirectiveTrivia(Microsoft.CodeAnalysis.CSharp.Syntax.DefineDirectiveTriviaSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitDelegateDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.DelegateDeclarationSyntax)
+Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitDeleteStatement(Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitDestructorDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.DestructorDeclarationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitDiscardDesignation(Microsoft.CodeAnalysis.CSharp.Syntax.DiscardDesignationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitDiscardPattern(Microsoft.CodeAnalysis.CSharp.Syntax.DiscardPatternSyntax)
@@ -2151,6 +2153,19 @@ Microsoft.CodeAnalysis.CSharp.Syntax.DelegateDeclarationSyntax.get_ParameterList
 Microsoft.CodeAnalysis.CSharp.Syntax.DelegateDeclarationSyntax.get_ReturnType
 Microsoft.CodeAnalysis.CSharp.Syntax.DelegateDeclarationSyntax.get_SemicolonToken
 Microsoft.CodeAnalysis.CSharp.Syntax.DelegateDeclarationSyntax.get_TypeParameterList
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.Accept(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor)
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.Accept``1(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor{``0})
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.AddAttributeLists(Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax[])
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.Update(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax},Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.CSharp.Syntax.NameSyntax,Microsoft.CodeAnalysis.SyntaxToken)
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.WithAttributeLists(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax})
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.WithDeleteKeyword(Microsoft.CodeAnalysis.SyntaxToken)
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.WithNameSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.NameSyntax)
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.WithSemicolonToken(Microsoft.CodeAnalysis.SyntaxToken)
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.get_AttributeLists
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.get_DeleteKeyword
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.get_NameSyntax
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.get_SemicolonToken
 Microsoft.CodeAnalysis.CSharp.Syntax.DestructorDeclarationSyntax
 Microsoft.CodeAnalysis.CSharp.Syntax.DestructorDeclarationSyntax.Accept(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor)
 Microsoft.CodeAnalysis.CSharp.Syntax.DestructorDeclarationSyntax.Accept``1(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor{``0})
@@ -4948,6 +4963,7 @@ Microsoft.CodeAnalysis.CSharp.SyntaxFactory.DelegateDeclaration(Microsoft.CodeAn
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.DelegateDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax,System.String)
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.DelegateDeclaration(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax},Microsoft.CodeAnalysis.SyntaxTokenList,Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax,Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterListSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.ParameterListSyntax,Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterConstraintClauseSyntax})
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.DelegateDeclaration(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax},Microsoft.CodeAnalysis.SyntaxTokenList,Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax,Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterListSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.ParameterListSyntax,Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterConstraintClauseSyntax},Microsoft.CodeAnalysis.SyntaxToken)
+Microsoft.CodeAnalysis.CSharp.SyntaxFactory.DeleteStatement(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax},Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.CSharp.Syntax.NameSyntax,Microsoft.CodeAnalysis.SyntaxToken)
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.DestructorDeclaration(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax},Microsoft.CodeAnalysis.SyntaxTokenList,Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.CSharp.Syntax.ParameterListSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.ArrowExpressionClauseSyntax)
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.DestructorDeclaration(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax},Microsoft.CodeAnalysis.SyntaxTokenList,Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.CSharp.Syntax.ParameterListSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.BlockSyntax)
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.DestructorDeclaration(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax},Microsoft.CodeAnalysis.SyntaxTokenList,Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.CSharp.Syntax.ParameterListSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.BlockSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.ArrowExpressionClauseSyntax)
@@ -5848,6 +5864,8 @@ Microsoft.CodeAnalysis.CSharp.SyntaxKind.DefineDirectiveTrivia
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.DefineKeyword
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.DelegateDeclaration
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.DelegateKeyword
+Microsoft.CodeAnalysis.CSharp.SyntaxKind.DeleteKeyword
+Microsoft.CodeAnalysis.CSharp.SyntaxKind.DeleteStatement
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.DescendingKeyword
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.DescendingOrdering
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.DestructorDeclaration

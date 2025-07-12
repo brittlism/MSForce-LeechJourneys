@@ -7479,6 +7479,66 @@ public sealed partial class WhileStatementSyntax : StatementSyntax
     public new WhileStatementSyntax AddAttributeLists(params AttributeListSyntax[] items) => WithAttributeLists(this.AttributeLists.AddRange(items));
 }
 
+public sealed partial class DeleteStatementSyntax : StatementSyntax
+{
+    private SyntaxNode? attributeLists;
+    private NameSyntax? nameSyntax;
+
+    internal DeleteStatementSyntax(InternalSyntax.CSharpSyntaxNode green, SyntaxNode? parent, int position)
+      : base(green, parent, position)
+    {
+    }
+
+    public override SyntaxList<AttributeListSyntax> AttributeLists => new SyntaxList<AttributeListSyntax>(GetRed(ref this.attributeLists, 0));
+
+    public SyntaxToken DeleteKeyword => new SyntaxToken(this, ((InternalSyntax.DeleteStatementSyntax)this.Green).deleteKeyword, GetChildPosition(1), GetChildIndex(1));
+
+    public NameSyntax NameSyntax => GetRed(ref this.nameSyntax, 2)!;
+
+    public SyntaxToken SemicolonToken => new SyntaxToken(this, ((InternalSyntax.DeleteStatementSyntax)this.Green).semicolonToken, GetChildPosition(3), GetChildIndex(3));
+
+    internal override SyntaxNode? GetNodeSlot(int index)
+        => index switch
+        {
+            0 => GetRedAtZero(ref this.attributeLists)!,
+            2 => GetRed(ref this.nameSyntax, 2)!,
+            _ => null,
+        };
+
+    internal override SyntaxNode? GetCachedSlot(int index)
+        => index switch
+        {
+            0 => this.attributeLists,
+            2 => this.nameSyntax,
+            _ => null,
+        };
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitDeleteStatement(this);
+    public override TResult? Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) where TResult : default => visitor.VisitDeleteStatement(this);
+
+    public DeleteStatementSyntax Update(SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken deleteKeyword, NameSyntax nameSyntax, SyntaxToken semicolonToken)
+    {
+        if (attributeLists != this.AttributeLists || deleteKeyword != this.DeleteKeyword || nameSyntax != this.NameSyntax || semicolonToken != this.SemicolonToken)
+        {
+            var newNode = SyntaxFactory.DeleteStatement(attributeLists, deleteKeyword, nameSyntax, semicolonToken);
+            var annotations = GetAnnotations();
+            return annotations?.Length > 0 ? newNode.WithAnnotations(annotations) : newNode;
+        }
+
+        return this;
+    }
+
+    internal override StatementSyntax WithAttributeListsCore(SyntaxList<AttributeListSyntax> attributeLists) => WithAttributeLists(attributeLists);
+    public new DeleteStatementSyntax WithAttributeLists(SyntaxList<AttributeListSyntax> attributeLists) => Update(attributeLists, this.DeleteKeyword, this.NameSyntax,  this.SemicolonToken);
+    public DeleteStatementSyntax WithDeleteKeyword(SyntaxToken deleteKeyword) => Update(this.AttributeLists, deleteKeyword, this.NameSyntax, this.SemicolonToken);
+    public DeleteStatementSyntax WithNameSyntax(NameSyntax nameSyntax) => Update(this.AttributeLists, this.DeleteKeyword, nameSyntax, this.SemicolonToken);
+    public DeleteStatementSyntax WithSemicolonToken(SyntaxToken semicolonToken) => Update(this.AttributeLists, this.DeleteKeyword, this.NameSyntax, semicolonToken);
+
+    internal override StatementSyntax AddAttributeListsCore(params AttributeListSyntax[] items) => AddAttributeLists(items);
+    public new DeleteStatementSyntax AddAttributeLists(params AttributeListSyntax[] items) => WithAttributeLists(this.AttributeLists.AddRange(items));
+}
+
+
 /// <remarks>
 /// <para>This node is associated with the following syntax kinds:</para>
 /// <list type="bullet">

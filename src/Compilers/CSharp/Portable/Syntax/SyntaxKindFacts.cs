@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public static IEnumerable<SyntaxKind> GetReservedKeywordKinds()
         {
-            for (int i = (int)SyntaxKind.BoolKeyword; i <= (int)SyntaxKind.ScopedKeyword; i++)
+            for (int i = (int)SyntaxKind.BoolKeyword; i <= (int)SyntaxKind.DeleteKeyword; i++)
             {
                 Debug.Assert(Enum.IsDefined(typeof(SyntaxKind), (SyntaxKind)i));
                 yield return (SyntaxKind)i;
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public static bool IsReservedKeyword(SyntaxKind kind)
         {
-            return kind >= SyntaxKind.BoolKeyword && kind <= SyntaxKind.ScopedKeyword;
+            return kind >= SyntaxKind.BoolKeyword && kind <= SyntaxKind.DeleteKeyword;
         }
 
         public static bool IsAttributeTargetSpecifier(SyntaxKind kind)
@@ -875,6 +875,8 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             switch (text)
             {
+                case "delete":
+                    return SyntaxKind.DeleteKeyword;
                 case "bool":
                     return SyntaxKind.BoolKeyword;
                 case "byte":
@@ -1567,6 +1569,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return "..";
 
                 // Keywords
+                case SyntaxKind.DeleteKeyword:
+                    return "delete";
                 case SyntaxKind.BoolKeyword:
                     return "bool";
                 case SyntaxKind.ByteKeyword:

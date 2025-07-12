@@ -12052,6 +12052,109 @@ internal sealed partial class WhileStatementSyntax : StatementSyntax
         => new WhileStatementSyntax(this.Kind, this.attributeLists, this.whileKeyword, this.openParenToken, this.condition, this.closeParenToken, this.statement, GetDiagnostics(), annotations);
 }
 
+internal sealed partial class DeleteStatementSyntax : StatementSyntax
+{
+    internal readonly GreenNode? attributeLists;
+    internal readonly SyntaxToken deleteKeyword;
+    internal readonly NameSyntax nameSyntax;
+    internal readonly SyntaxToken semicolonToken;
+
+    internal DeleteStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken deleteKeyword, NameSyntax nameSyntax, SyntaxToken semicolonToken, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations) 
+        : base(kind, diagnostics, annotations)
+    {
+        this.SlotCount = 4;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(deleteKeyword);
+        this.deleteKeyword = deleteKeyword;
+        this.AdjustFlagsAndWidth(nameSyntax);
+        this.nameSyntax = nameSyntax;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+    internal DeleteStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken deleteKeyword, NameSyntax nameSyntax, SyntaxToken semicolonToken, SyntaxFactoryContext context)
+      : base(kind)
+    {
+        this.SetFactoryContext(context);
+        this.SlotCount = 4;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(deleteKeyword);
+        this.deleteKeyword = deleteKeyword;
+        this.AdjustFlagsAndWidth(nameSyntax);
+        this.nameSyntax = nameSyntax;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+
+    internal DeleteStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken deleteKeyword, NameSyntax nameSyntax, SyntaxToken semicolonToken)
+      : base(kind)
+    {
+        this.SlotCount = 4;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(deleteKeyword);
+        this.deleteKeyword = deleteKeyword;
+        this.AdjustFlagsAndWidth(nameSyntax);
+        this.nameSyntax = nameSyntax;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+    public override CoreSyntax.SyntaxList<AttributeListSyntax> AttributeLists => new CoreSyntax.SyntaxList<AttributeListSyntax>(this.attributeLists);
+    public SyntaxToken DeleteKeyword => this.deleteKeyword;
+    public NameSyntax NameSyntax => this.nameSyntax;
+    public SyntaxToken SemicolonToken => this.semicolonToken;
+
+    internal override GreenNode? GetSlot(int index)
+        => index switch
+        {
+            0 => this.attributeLists,
+            1 => this.deleteKeyword,
+            2 => this.nameSyntax,
+            3 => this.semicolonToken,
+            _ => null,
+        };
+
+    internal override SyntaxNode CreateRed(SyntaxNode? parent, int position) => new CSharp.Syntax.DeleteStatementSyntax(this, parent, position);
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitDeleteStatement(this);
+    public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitDeleteStatement(this);
+
+    public DeleteStatementSyntax Update(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken deleteKeyword, NameSyntax nameSyntax, SyntaxToken semicolonToken)
+    {
+        if (attributeLists != this.AttributeLists || deleteKeyword != this.DeleteKeyword || nameSyntax != this.NameSyntax || semicolonToken != this.SemicolonToken)
+        {
+            var newNode = SyntaxFactory.DeleteStatement(attributeLists, deleteKeyword, nameSyntax, semicolonToken);
+            var diags = GetDiagnostics();
+            if (diags?.Length > 0)
+                newNode = newNode.WithDiagnosticsGreen(diags);
+            var annotations = GetAnnotations();
+            if (annotations?.Length > 0)
+                newNode = newNode.WithAnnotationsGreen(annotations);
+            return newNode;
+        }
+
+        return this;
+    }
+
+    internal override GreenNode SetDiagnostics(DiagnosticInfo[]? diagnostics)
+        => new DeleteStatementSyntax(this.Kind, this.attributeLists, this.deleteKeyword, this.nameSyntax, this.semicolonToken, diagnostics, GetAnnotations());
+
+    internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
+        => new DeleteStatementSyntax(this.Kind, this.attributeLists, this.deleteKeyword, this.nameSyntax, this.semicolonToken, GetDiagnostics(), annotations);
+
+}
+
+
 internal sealed partial class DoStatementSyntax : StatementSyntax
 {
     internal readonly GreenNode? attributeLists;
@@ -27071,6 +27174,7 @@ internal partial class CSharpSyntaxVisitor<TResult>
     public virtual TResult VisitYieldStatement(YieldStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitWhileStatement(WhileStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitDoStatement(DoStatementSyntax node) => this.DefaultVisit(node);
+    public virtual TResult VisitDeleteStatement(DeleteStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitForStatement(ForStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitForEachStatement(ForEachStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitForEachVariableStatement(ForEachVariableStatementSyntax node) => this.DefaultVisit(node);
@@ -27322,6 +27426,7 @@ internal partial class CSharpSyntaxVisitor
     public virtual void VisitYieldStatement(YieldStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitWhileStatement(WhileStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitDoStatement(DoStatementSyntax node) => this.DefaultVisit(node);
+    public virtual void VisitDeleteStatement(DeleteStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitForStatement(ForStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitForEachStatement(ForEachStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitForEachVariableStatement(ForEachVariableStatementSyntax node) => this.DefaultVisit(node);
@@ -36263,23 +36368,13 @@ internal static partial class SyntaxFactory
         return new WhileStatementSyntax(SyntaxKind.WhileStatement, attributeLists.Node, whileKeyword, openParenToken, condition, closeParenToken, statement);
     }
 
+    public static DeleteStatementSyntax DeleteStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken deleteKeyword, NameSyntax nameSyntax, SyntaxToken semicolonToken)
+    {
+        return new DeleteStatementSyntax(SyntaxKind.DeleteStatement, attributeLists.Node, deleteKeyword, nameSyntax, semicolonToken);
+    }
+
     public static DoStatementSyntax DoStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken whileKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken)
     {
-#if DEBUG
-        if (doKeyword == null) throw new ArgumentNullException(nameof(doKeyword));
-        if (doKeyword.Kind != SyntaxKind.DoKeyword) throw new ArgumentException(nameof(doKeyword));
-        if (statement == null) throw new ArgumentNullException(nameof(statement));
-        if (whileKeyword == null) throw new ArgumentNullException(nameof(whileKeyword));
-        if (whileKeyword.Kind != SyntaxKind.WhileKeyword) throw new ArgumentException(nameof(whileKeyword));
-        if (openParenToken == null) throw new ArgumentNullException(nameof(openParenToken));
-        if (openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
-        if (condition == null) throw new ArgumentNullException(nameof(condition));
-        if (closeParenToken == null) throw new ArgumentNullException(nameof(closeParenToken));
-        if (closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
-        if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
-        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
-#endif
-
         return new DoStatementSyntax(SyntaxKind.DoStatement, attributeLists.Node, doKeyword, statement, whileKeyword, openParenToken, condition, closeParenToken, semicolonToken);
     }
 

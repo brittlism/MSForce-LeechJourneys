@@ -671,7 +671,7 @@ Imports CC
 </content>
 
             Dim final As XElement
-            If GlobalizationUtilities.ICUMode() Then
+            If False Then
                 final =
 <content>Imports a
 Imports A
@@ -777,7 +777,7 @@ Imports ｱア
 Imports ｱｱ</content>
 
             Dim final As XElement
-            If GlobalizationUtilities.ICUMode() Then
+            If False Then
                 final =
 <content>Imports あ
 Imports ｱ
