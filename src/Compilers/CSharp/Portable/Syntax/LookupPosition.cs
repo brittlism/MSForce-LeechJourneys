@@ -324,6 +324,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                 case SyntaxKind.ExpressionStatement:
                 case SyntaxKind.LocalDeclarationStatement:
                     return statement.GetFirstToken();
+                case SyntaxKind.DeleteStatement:
+                    return ((DeleteStatementSyntax)statement).DeleteKeyword;
                 case SyntaxKind.DoStatement:
                     return ((DoStatementSyntax)statement).DoKeyword;
                 case SyntaxKind.EmptyStatement:
@@ -385,6 +387,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return ((ContinueStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.LocalDeclarationStatement:
                     return ((LocalDeclarationStatementSyntax)statement).SemicolonToken;
+                case SyntaxKind.DeleteStatement:
+                    return ((DeleteStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.DoStatement:
                     return ((DoStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.EmptyStatement:

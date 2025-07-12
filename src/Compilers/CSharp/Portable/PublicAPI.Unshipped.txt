@@ -1,4 +1,7 @@
 abstract Microsoft.CodeAnalysis.CSharp.InterceptableLocation.Equals(Microsoft.CodeAnalysis.CSharp.InterceptableLocation? other) -> bool
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.DeleteKeyword.get -> Microsoft.CodeAnalysis.SyntaxToken
+Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.SemicolonToken.get -> Microsoft.CodeAnalysis.SyntaxToken
 Microsoft.CodeAnalysis.CSharp.Syntax.ExtensionBlockDeclarationSyntax
 Microsoft.CodeAnalysis.CSharp.Syntax.ExtensionBlockDeclarationSyntax.AddAttributeLists(params Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax![]! items) -> Microsoft.CodeAnalysis.CSharp.Syntax.ExtensionBlockDeclarationSyntax!
 Microsoft.CodeAnalysis.CSharp.Syntax.ExtensionBlockDeclarationSyntax.AddConstraintClauses(params Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterConstraintClauseSyntax![]! items) -> Microsoft.CodeAnalysis.CSharp.Syntax.ExtensionBlockDeclarationSyntax!
@@ -37,6 +40,7 @@ Microsoft.CodeAnalysis.CSharp.SyntaxKind.ExtensionMemberCref = 8607 -> Microsoft
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.ScopedKeyword = 8385 -> Microsoft.CodeAnalysis.CSharp.SyntaxKind
 override Microsoft.CodeAnalysis.CSharp.CSharpSyntaxRewriter.VisitExtensionBlockDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.ExtensionBlockDeclarationSyntax! node) -> Microsoft.CodeAnalysis.SyntaxNode?
 override Microsoft.CodeAnalysis.CSharp.CSharpSyntaxRewriter.VisitExtensionMemberCref(Microsoft.CodeAnalysis.CSharp.Syntax.ExtensionMemberCrefSyntax! node) -> Microsoft.CodeAnalysis.SyntaxNode?
+override Microsoft.CodeAnalysis.CSharp.Syntax.DeleteStatementSyntax.AttributeLists.get -> Microsoft.CodeAnalysis.SyntaxList<Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax!>
 override Microsoft.CodeAnalysis.CSharp.Syntax.ExtensionBlockDeclarationSyntax.Accept(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor! visitor) -> void
 override Microsoft.CodeAnalysis.CSharp.Syntax.ExtensionBlockDeclarationSyntax.Accept<TResult>(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor<TResult>! visitor) -> TResult?
 override Microsoft.CodeAnalysis.CSharp.Syntax.ExtensionBlockDeclarationSyntax.AttributeLists.get -> Microsoft.CodeAnalysis.SyntaxList<Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax!>
@@ -86,4 +90,5 @@ static Microsoft.CodeAnalysis.CSharp.SyntaxFactory.IgnoredDirectiveTrivia(Micros
 virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitIgnoredDirectiveTrivia(Microsoft.CodeAnalysis.CSharp.Syntax.IgnoredDirectiveTriviaSyntax! node) -> void
 virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor<TResult>.VisitExtensionMemberCref(Microsoft.CodeAnalysis.CSharp.Syntax.ExtensionMemberCrefSyntax! node) -> TResult?
 virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor<TResult>.VisitIgnoredDirectiveTrivia(Microsoft.CodeAnalysis.CSharp.Syntax.IgnoredDirectiveTriviaSyntax! node) -> TResult?
+static Microsoft.CodeAnalysis.CSharp.SyntaxFacts.IsOverloadableCompoundAssignmentOperator(Microsoft.CodeAnalysis.CSharp.SyntaxKind kind) -> bool
 static Microsoft.CodeAnalysis.CSharp.SyntaxFacts.IsOverloadableCompoundAssignmentOperator(Microsoft.CodeAnalysis.CSharp.SyntaxKind kind) -> bool

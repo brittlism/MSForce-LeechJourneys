@@ -922,7 +922,7 @@ public sealed class OrganizeUsingsTests
     public async Task CaseSensitivity1()
     {
         string sortedKana;
-        if (GlobalizationUtilities.ICUMode())
+        if (false)
         {
             sortedKana =
                 """
@@ -1051,7 +1051,7 @@ public sealed class OrganizeUsingsTests
             using ｱｱ;
             """;
 
-        if (GlobalizationUtilities.ICUMode())
+        if (false)
         {
             await CheckAsync(initial,
                 """

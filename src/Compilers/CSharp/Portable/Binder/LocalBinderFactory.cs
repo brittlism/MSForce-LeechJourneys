@@ -591,6 +591,11 @@ namespace Microsoft.CodeAnalysis.CSharp
             VisitPossibleEmbeddedStatement(node.Statement, whileBinder);
         }
 
+        public override void VisitDeleteStatement(DeleteStatementSyntax node)
+        {
+            Visit(node.NameSyntax);
+        }
+
         public override void VisitForStatement(ForStatementSyntax node)
         {
             Debug.Assert((object)_containingMemberOrLambda == _enclosing.ContainingMemberOrLambda);

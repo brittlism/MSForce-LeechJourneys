@@ -8093,6 +8093,8 @@ done:
                     case SyntaxKind.CheckedKeyword:
                     case SyntaxKind.UncheckedKeyword:
                         return this.ParseCheckedStatement(attributes);
+                    case SyntaxKind.DeleteKeyword:
+                        return this.ParseDeleteStatement(attributes);
                     case SyntaxKind.DoKeyword:
                         return this.ParseDoStatement(attributes);
                     case SyntaxKind.ForKeyword:
@@ -8142,6 +8144,15 @@ done:
                 _recursionDepth--;
                 this.Release(ref resetPointBeforeStatement);
             }
+        }
+
+        private StatementSyntax ParseDeleteStatement(SyntaxList<AttributeListSyntax> attributes)
+        {
+            var keyword = this.EatToken(SyntaxKind.DeleteKeyword);
+
+            var name = this.ParseQualifiedName();
+
+            return SyntaxFactory.DeleteStatement(attributes, keyword, name, this.EatToken(SyntaxKind.SemicolonToken));
         }
 
         private StatementSyntax TryReuseStatement(SyntaxList<AttributeListSyntax> attributes, bool isGlobal)
@@ -8929,6 +8940,7 @@ done:
                 case SyntaxKind.ThrowKeyword:
                 case SyntaxKind.UnsafeKeyword:
                 case SyntaxKind.ScopedKeyword: // modified -LeechForce
+                case SyntaxKind.DeleteKeyword: // added -LeechForce
                 case SyntaxKind.WhileKeyword:
                 case SyntaxKind.OpenBraceToken:
                 case SyntaxKind.SemicolonToken:
