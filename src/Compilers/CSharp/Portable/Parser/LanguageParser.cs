@@ -9213,7 +9213,16 @@ done:
             Debug.Assert(this.CurrentToken.Kind == SyntaxKind.DoKeyword);
             var @do = this.EatToken(SyntaxKind.DoKeyword);
             var statement = this.ParseEmbeddedStatement();
-            var @while = this.EatToken(SyntaxKind.WhileKeyword);
+            var @while = this.TryEatToken(SyntaxKind.WhileKeyword);
+
+            if (@while is null)
+            {
+                return _syntaxFactory.DoStatement(
+                    attributes,
+                    @do,
+                    statement);
+            }
+
             var openParen = this.EatToken(SyntaxKind.OpenParenToken);
 
             var saveTerm = _termState;
@@ -11703,6 +11712,11 @@ done:
                                 ? lambda
                                 : this.ParseCastOrParenExpressionOrTuple();
                         }
+                    /*case SyntaxKind.ScopedKeyword:
+                        var creationExpression = this.ParseNewExpression();
+
+                        return SyntaxFactory.LocalDeclarationStatement(attributes, )
+                            */
                     case SyntaxKind.NewKeyword:
                         return this.ParseNewExpression();
                     case SyntaxKind.StackAllocKeyword:
@@ -12850,8 +12864,6 @@ done:
 
         private ExpressionSyntax ParseNewExpression()
         {
-            Debug.Assert(this.CurrentToken.Kind == SyntaxKind.NewKeyword);
-
             if (this.IsAnonymousType())
             {
                 return this.ParseAnonymousTypeExpression();

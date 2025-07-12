@@ -12057,13 +12057,13 @@ internal sealed partial class DoStatementSyntax : StatementSyntax
     internal readonly GreenNode? attributeLists;
     internal readonly SyntaxToken doKeyword;
     internal readonly StatementSyntax statement;
-    internal readonly SyntaxToken whileKeyword;
-    internal readonly SyntaxToken openParenToken;
-    internal readonly ExpressionSyntax condition;
-    internal readonly SyntaxToken closeParenToken;
-    internal readonly SyntaxToken semicolonToken;
+    internal readonly SyntaxToken? whileKeyword;
+    internal readonly SyntaxToken? openParenToken;
+    internal readonly ExpressionSyntax? condition;
+    internal readonly SyntaxToken? closeParenToken;
+    internal readonly SyntaxToken? semicolonToken;
 
-    internal DoStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken whileKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
+    internal DoStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken? whileKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, SyntaxToken? semicolonToken, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
       : base(kind, diagnostics, annotations)
     {
         this.SlotCount = 8;
@@ -12088,35 +12088,10 @@ internal sealed partial class DoStatementSyntax : StatementSyntax
         this.semicolonToken = semicolonToken;
     }
 
-    internal DoStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken whileKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken, SyntaxFactoryContext context)
+    internal DoStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken? whileKeyword = null, SyntaxToken? openParenToken = null, ExpressionSyntax? condition = null, SyntaxToken? closeParenToken = null, SyntaxToken? semicolonToken = null, SyntaxFactoryContext? context = null)
       : base(kind)
     {
-        this.SetFactoryContext(context);
-        this.SlotCount = 8;
-        if (attributeLists != null)
-        {
-            this.AdjustFlagsAndWidth(attributeLists);
-            this.attributeLists = attributeLists;
-        }
-        this.AdjustFlagsAndWidth(doKeyword);
-        this.doKeyword = doKeyword;
-        this.AdjustFlagsAndWidth(statement);
-        this.statement = statement;
-        this.AdjustFlagsAndWidth(whileKeyword);
-        this.whileKeyword = whileKeyword;
-        this.AdjustFlagsAndWidth(openParenToken);
-        this.openParenToken = openParenToken;
-        this.AdjustFlagsAndWidth(condition);
-        this.condition = condition;
-        this.AdjustFlagsAndWidth(closeParenToken);
-        this.closeParenToken = closeParenToken;
-        this.AdjustFlagsAndWidth(semicolonToken);
-        this.semicolonToken = semicolonToken;
-    }
-
-    internal DoStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken whileKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken)
-      : base(kind)
-    {
+        context?.Set(this);
         this.SlotCount = 8;
         if (attributeLists != null)
         {
@@ -12142,11 +12117,11 @@ internal sealed partial class DoStatementSyntax : StatementSyntax
     public override CoreSyntax.SyntaxList<AttributeListSyntax> AttributeLists => new CoreSyntax.SyntaxList<AttributeListSyntax>(this.attributeLists);
     public SyntaxToken DoKeyword => this.doKeyword;
     public StatementSyntax Statement => this.statement;
-    public SyntaxToken WhileKeyword => this.whileKeyword;
-    public SyntaxToken OpenParenToken => this.openParenToken;
-    public ExpressionSyntax Condition => this.condition;
-    public SyntaxToken CloseParenToken => this.closeParenToken;
-    public SyntaxToken SemicolonToken => this.semicolonToken;
+    public SyntaxToken? WhileKeyword => this.whileKeyword;
+    public SyntaxToken? OpenParenToken => this.openParenToken;
+    public ExpressionSyntax? Condition => this.condition;
+    public SyntaxToken? CloseParenToken => this.closeParenToken;
+    public SyntaxToken? SemicolonToken => this.semicolonToken;
 
     internal override GreenNode? GetSlot(int index)
         => index switch
@@ -12167,7 +12142,7 @@ internal sealed partial class DoStatementSyntax : StatementSyntax
     public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitDoStatement(this);
     public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitDoStatement(this);
 
-    public DoStatementSyntax Update(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken whileKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken)
+    public DoStatementSyntax Update(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken? whileKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, SyntaxToken? semicolonToken)
     {
         if (attributeLists != this.AttributeLists || doKeyword != this.DoKeyword || statement != this.Statement || whileKeyword != this.WhileKeyword || openParenToken != this.OpenParenToken || condition != this.Condition || closeParenToken != this.CloseParenToken || semicolonToken != this.SemicolonToken)
         {
@@ -30876,139 +30851,36 @@ internal partial class ContextAwareSyntax
 
     public YieldStatementSyntax YieldStatement(SyntaxKind kind, CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken yieldKeyword, SyntaxToken returnOrBreakKeyword, ExpressionSyntax? expression, SyntaxToken semicolonToken)
     {
-        switch (kind)
-        {
-            case SyntaxKind.YieldReturnStatement:
-            case SyntaxKind.YieldBreakStatement: break;
-            default: throw new ArgumentException(nameof(kind));
-        }
-#if DEBUG
-        if (yieldKeyword == null) throw new ArgumentNullException(nameof(yieldKeyword));
-        if (yieldKeyword.Kind != SyntaxKind.YieldKeyword) throw new ArgumentException(nameof(yieldKeyword));
-        if (returnOrBreakKeyword == null) throw new ArgumentNullException(nameof(returnOrBreakKeyword));
-        switch (returnOrBreakKeyword.Kind)
-        {
-            case SyntaxKind.ReturnKeyword:
-            case SyntaxKind.BreakKeyword: break;
-            default: throw new ArgumentException(nameof(returnOrBreakKeyword));
-        }
-        if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
-        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
-#endif
-
         return new YieldStatementSyntax(kind, attributeLists.Node, yieldKeyword, returnOrBreakKeyword, expression, semicolonToken, this.context);
     }
 
     public WhileStatementSyntax WhileStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken whileKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, StatementSyntax statement)
     {
-#if DEBUG
-        if (whileKeyword == null) throw new ArgumentNullException(nameof(whileKeyword));
-        if (whileKeyword.Kind != SyntaxKind.WhileKeyword) throw new ArgumentException(nameof(whileKeyword));
-        if (openParenToken == null) throw new ArgumentNullException(nameof(openParenToken));
-        if (openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
-        if (condition == null) throw new ArgumentNullException(nameof(condition));
-        if (closeParenToken == null) throw new ArgumentNullException(nameof(closeParenToken));
-        if (closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
-        if (statement == null) throw new ArgumentNullException(nameof(statement));
-#endif
-
         return new WhileStatementSyntax(SyntaxKind.WhileStatement, attributeLists.Node, whileKeyword, openParenToken, condition, closeParenToken, statement, this.context);
+    }
+
+    public DoStatementSyntax DoStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement)
+    {
+        return new DoStatementSyntax(SyntaxKind.DoStatement, attributeLists.Node, doKeyword, statement, context: this.context);
     }
 
     public DoStatementSyntax DoStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken whileKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken)
     {
-#if DEBUG
-        if (doKeyword == null) throw new ArgumentNullException(nameof(doKeyword));
-        if (doKeyword.Kind != SyntaxKind.DoKeyword) throw new ArgumentException(nameof(doKeyword));
-        if (statement == null) throw new ArgumentNullException(nameof(statement));
-        if (whileKeyword == null) throw new ArgumentNullException(nameof(whileKeyword));
-        if (whileKeyword.Kind != SyntaxKind.WhileKeyword) throw new ArgumentException(nameof(whileKeyword));
-        if (openParenToken == null) throw new ArgumentNullException(nameof(openParenToken));
-        if (openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
-        if (condition == null) throw new ArgumentNullException(nameof(condition));
-        if (closeParenToken == null) throw new ArgumentNullException(nameof(closeParenToken));
-        if (closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
-        if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
-        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
-#endif
-
         return new DoStatementSyntax(SyntaxKind.DoStatement, attributeLists.Node, doKeyword, statement, whileKeyword, openParenToken, condition, closeParenToken, semicolonToken, this.context);
     }
 
     public ForStatementSyntax ForStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken forKeyword, SyntaxToken openParenToken, VariableDeclarationSyntax? declaration, CoreSyntax.SeparatedSyntaxList<ExpressionSyntax> initializers, SyntaxToken firstSemicolonToken, ExpressionSyntax? condition, SyntaxToken secondSemicolonToken, CoreSyntax.SeparatedSyntaxList<ExpressionSyntax> incrementors, SyntaxToken closeParenToken, StatementSyntax statement)
     {
-#if DEBUG
-        if (forKeyword == null) throw new ArgumentNullException(nameof(forKeyword));
-        if (forKeyword.Kind != SyntaxKind.ForKeyword) throw new ArgumentException(nameof(forKeyword));
-        if (openParenToken == null) throw new ArgumentNullException(nameof(openParenToken));
-        if (openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
-        if (firstSemicolonToken == null) throw new ArgumentNullException(nameof(firstSemicolonToken));
-        if (firstSemicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(firstSemicolonToken));
-        if (secondSemicolonToken == null) throw new ArgumentNullException(nameof(secondSemicolonToken));
-        if (secondSemicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(secondSemicolonToken));
-        if (closeParenToken == null) throw new ArgumentNullException(nameof(closeParenToken));
-        if (closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
-        if (statement == null) throw new ArgumentNullException(nameof(statement));
-#endif
-
         return new ForStatementSyntax(SyntaxKind.ForStatement, attributeLists.Node, forKeyword, openParenToken, declaration, initializers.Node, firstSemicolonToken, condition, secondSemicolonToken, incrementors.Node, closeParenToken, statement, this.context);
     }
 
     public ForEachStatementSyntax ForEachStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken? awaitKeyword, SyntaxToken forEachKeyword, SyntaxToken openParenToken, TypeSyntax type, SyntaxToken identifier, SyntaxToken inKeyword, ExpressionSyntax expression, SyntaxToken closeParenToken, StatementSyntax statement)
     {
-#if DEBUG
-        if (awaitKeyword != null)
-        {
-            switch (awaitKeyword.Kind)
-            {
-                case SyntaxKind.AwaitKeyword:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(awaitKeyword));
-            }
-        }
-        if (forEachKeyword == null) throw new ArgumentNullException(nameof(forEachKeyword));
-        if (forEachKeyword.Kind != SyntaxKind.ForEachKeyword) throw new ArgumentException(nameof(forEachKeyword));
-        if (openParenToken == null) throw new ArgumentNullException(nameof(openParenToken));
-        if (openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
-        if (type == null) throw new ArgumentNullException(nameof(type));
-        if (identifier == null) throw new ArgumentNullException(nameof(identifier));
-        if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
-        if (inKeyword == null) throw new ArgumentNullException(nameof(inKeyword));
-        if (inKeyword.Kind != SyntaxKind.InKeyword) throw new ArgumentException(nameof(inKeyword));
-        if (expression == null) throw new ArgumentNullException(nameof(expression));
-        if (closeParenToken == null) throw new ArgumentNullException(nameof(closeParenToken));
-        if (closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
-        if (statement == null) throw new ArgumentNullException(nameof(statement));
-#endif
-
         return new ForEachStatementSyntax(SyntaxKind.ForEachStatement, attributeLists.Node, awaitKeyword, forEachKeyword, openParenToken, type, identifier, inKeyword, expression, closeParenToken, statement, this.context);
     }
 
     public ForEachVariableStatementSyntax ForEachVariableStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken? awaitKeyword, SyntaxToken forEachKeyword, SyntaxToken openParenToken, ExpressionSyntax variable, SyntaxToken inKeyword, ExpressionSyntax expression, SyntaxToken closeParenToken, StatementSyntax statement)
     {
-#if DEBUG
-        if (awaitKeyword != null)
-        {
-            switch (awaitKeyword.Kind)
-            {
-                case SyntaxKind.AwaitKeyword:
-                case SyntaxKind.None: break;
-                default: throw new ArgumentException(nameof(awaitKeyword));
-            }
-        }
-        if (forEachKeyword == null) throw new ArgumentNullException(nameof(forEachKeyword));
-        if (forEachKeyword.Kind != SyntaxKind.ForEachKeyword) throw new ArgumentException(nameof(forEachKeyword));
-        if (openParenToken == null) throw new ArgumentNullException(nameof(openParenToken));
-        if (openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
-        if (variable == null) throw new ArgumentNullException(nameof(variable));
-        if (inKeyword == null) throw new ArgumentNullException(nameof(inKeyword));
-        if (inKeyword.Kind != SyntaxKind.InKeyword) throw new ArgumentException(nameof(inKeyword));
-        if (expression == null) throw new ArgumentNullException(nameof(expression));
-        if (closeParenToken == null) throw new ArgumentNullException(nameof(closeParenToken));
-        if (closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
-        if (statement == null) throw new ArgumentNullException(nameof(statement));
-#endif
-
         return new ForEachVariableStatementSyntax(SyntaxKind.ForEachVariableStatement, attributeLists.Node, awaitKeyword, forEachKeyword, openParenToken, variable, inKeyword, expression, closeParenToken, statement, this.context);
     }
 
@@ -36263,23 +36135,8 @@ internal static partial class SyntaxFactory
         return new WhileStatementSyntax(SyntaxKind.WhileStatement, attributeLists.Node, whileKeyword, openParenToken, condition, closeParenToken, statement);
     }
 
-    public static DoStatementSyntax DoStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken whileKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken)
+    public static DoStatementSyntax DoStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken? whileKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, SyntaxToken? semicolonToken)
     {
-#if DEBUG
-        if (doKeyword == null) throw new ArgumentNullException(nameof(doKeyword));
-        if (doKeyword.Kind != SyntaxKind.DoKeyword) throw new ArgumentException(nameof(doKeyword));
-        if (statement == null) throw new ArgumentNullException(nameof(statement));
-        if (whileKeyword == null) throw new ArgumentNullException(nameof(whileKeyword));
-        if (whileKeyword.Kind != SyntaxKind.WhileKeyword) throw new ArgumentException(nameof(whileKeyword));
-        if (openParenToken == null) throw new ArgumentNullException(nameof(openParenToken));
-        if (openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
-        if (condition == null) throw new ArgumentNullException(nameof(condition));
-        if (closeParenToken == null) throw new ArgumentNullException(nameof(closeParenToken));
-        if (closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
-        if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
-        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
-#endif
-
         return new DoStatementSyntax(SyntaxKind.DoStatement, attributeLists.Node, doKeyword, statement, whileKeyword, openParenToken, condition, closeParenToken, semicolonToken);
     }
 
