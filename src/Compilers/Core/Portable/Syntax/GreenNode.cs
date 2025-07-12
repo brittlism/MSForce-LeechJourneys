@@ -112,9 +112,9 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        protected void AdjustFlagsAndWidth(GreenNode node)
+        protected void AdjustFlagsAndWidth(GreenNode? node)
         {
-            RoslynDebug.Assert(node != null, "PERF: caller must ensure that node!=null, we do not want to re-check that here.");
+            if (node == null) return;
             SetFlags(node.Flags & NodeFlags.InheritMask);
             _fullWidth += node._fullWidth;
         }
