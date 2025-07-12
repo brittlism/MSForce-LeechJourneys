@@ -40,5 +40,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         /// to determine whether the token is a keyword or an identifier.
         /// </summary>
         internal bool IsInFieldKeywordContext;
+
+        public void Set(CSharpSyntaxNode node)
+            => node.SetFactoryContext(this);
     }
 }

@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         /// <remarks>
         /// This should probably be an extra constructor parameter, but we don't need more constructor overloads.
         /// </remarks>
-        protected void SetFactoryContext(SyntaxFactoryContext context)
+        public void SetFactoryContext(SyntaxFactoryContext context)
         {
             if (context.IsInAsync)
             {
